@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main id="main" class="main">
+        <div class="container">
+            <!-- ВИДЕО -->
+            <section id="video" class="video">
+                <div class="header__video-block">
+                    <video class="header__video" src="{% static 'video/pizza.mp4' %}" autoplay="" loop="" muted="">
+                    </video>
+                </div>
+                <hr class="video__band">
+            </section>
+            <!-- СЛАЙДЕР -->
+            <section id="slider" class="slider">
+                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                    <div id="carousel-indicators" class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                                aria-label="Slide 1" aria-current="true"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                                aria-label="Slide 2"
+                                class=""></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                                aria-label="Slide 3"
+                                class=""></button>
+                    </div>
+                    <div id="carousel-inner" class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <img src="{% static 'img/pizza.jpg' %}" class="d-block w-100" alt="rolls">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Все виды пиццы</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <img src="{% static 'img/pizza1.jpg' %}" class="d-block w-100" alt="pizza">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Большой ассортимент напитков</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'img/fastfood.jpg' %}" class="d-block w-100" alt="fastfood">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Фри, наггетсы, луковые кольца!</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <hr id="slider__band" class="slider__band">
+            </section>
+            <!-- КОНЕЦ СЛАЙДЕРА -->
+            <!-- МЕНЮ РАЗДЕЛОВ-->
+            <section class="filter-menu">
+                <div class="row">
+                    {% for category in categories %}
+                        <div class="col justify-content-center">
+                            <!-- начало ссылки меню раздела -->
+                            <a class="filter-menu__link" href="{% url 'app_catalog:category_detail' category.slug %}">
+                                <div class="filter-menu__img-block">
+                                    {% if category.image %}
+                                        <img class="filter-menu__img" src="{{ category.image.url }}" alt="rolls-card">
+                                    {% else %}
+                                        <img class="filter-menu__img" src="{% static 'img/not_found.png' %}" alt="{{ category.name }}">
+                                    {% endif %}
+                                </div>
+                                <p class="filter-menu__title">{{ category.name }}</p>
+                            </a>
+                            <!-- конец ссылки меню раздела -->
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <!-- КОНЕЦ РАЗДЕЛОВ-->
+            <!-- ИНФОРМАЦИЯ-->
+            <section id="about" class="about">
+                <hr class="about__band">
+                <h2 class="about__title">О НАС</h2>
+                <div class="about__info-wrapper">
+                    <div class="about__info-block">
+                        <div class="about__img-info-block">
+                            <img src="{% static 'img/info-pizza2.jpg' %}" alt="info-img">
+                        </div>
+                        <div class="about__info-text-block">
+                            <h3 class="about__info-title">Мы с глубоким уважением относимся к законам и традициям
+                                итальянской кухни.
+                            </h3>
+                            <p class="about__info-text">
+                                В Беларуси пицца пользуется широкой популярностью. К сожалению, несмотря на разнообразие
+                                предложений, найти настоящую
+                                пиццу, приготовленную в полном соответствии с канонами исторической родины, бывает
+                                довольно
+                                сложно.
+                                В <span class="about__logo-word">Гурман хол</span> мы с особым вниманием соблюдаем
+                                законы и
+                                традиции итальянской кухни, проявляя уважение к истории блюд, которые готовим.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="about__info-block">
+                        <div class="about__info-text-block">
+                            <h3 class="about__info-title">Стандарты и опытные специалисты на каждом этапе.</h3>
+                            <p class="about__info-text">
+                                Свежие ингредиенты, продуманная композиция и профессиональные нормы, соблюдаемые на
+                                каждом этапе, обеспечивают гарантированный вкус нашей пиццы. Мы используем пергамент под
+                                пиццей, чтобы предотвратить ее прилипание и избежать отсыревания дна коробки. При
+                                упаковке
+                                вашего заказа в термосумку менеджер смены осматривает пиццу и запечатывает коробку
+                                специальной лентой для контроля качества.
+                                <br>
+                                <br>
+                                Благодаря четко настроенной системе контроля качества, внедренной на нашем производстве,
+                                мы исключаем возможность отправки клиенту продукции, не соответствующей установленным
+                                стандартам.
+                            </p>
+                        </div>
+                        <div class="about__img-info-block">
+                            <img src="{% static 'img/info-pizza.jpg' %}" alt="info-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="about__delivery-block">
+                    <h3 class="about__info-title">Доставка!</h3>
+                    <p class="about__text">Сервис доставки <span class="about__logo-word">Гурман хол</span>
+                        трансформирует атмосферу нашего ресторана прямо у вас дома. Раскрывая перед вами
+                        ресторанный опыт, наши курьеры отличаются стильным сервисом, точностью и дружелюбием, принося
+                        атмосферу нашего заведения в любую точку города. <br>
+                        <br>
+                        Миссия нашего бренда заключается в том, чтобы быть друзьями для наших клиентов, разделять их
+                        повседневные
+                        радости, быть
+                        частью ключевых моментов и всегда поднимать настроение! <br>
+                        <br>
+                        <span class="about__logo-word">Гурман хол</span> предлагает широкий выбор блюд: все виды
+                        ароматной
+                        пиццы, а также аппетитные порции горячей картошки фри и многое другое. <br>
+                        <br>
+                        Наша цель - чтобы каждый заказ и доставка с <span class="about__logo-word">Гурман хол</span>
+                        приносили только положительные впечатления каждому нашему
+                        клиенту. <br>
+                        <br>
+                        Приятного выбора! <br>
+                        <br>
+                        С уважением, команда <span class="about__logo-word">Гурман хол</span>
+                    </p>
+                </div>
+            </section>
+        </div>
+        <!-- КОНЕЦ ИНФОРМАЦИИ-->
+    </main>
+
+{% endblock %}
+
+

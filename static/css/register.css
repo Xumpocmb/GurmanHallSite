@@ -1,0 +1,86 @@
+.register__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.register__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card-footer {
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-footer:first-child {
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.col-md-6 {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.form-row {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.5;
+    font-family: "Prompt", sans-serif;
+}
+
+.register__link {
+    color: #32373d;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.register__link:hover {
+    color: #079c5a;
+    transition: 0.3s;
+}
+
+.small {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+@media (max-width: 767px) {
+    .form-row {
+        justify-content: center;
+        gap: 10px;
+    }
+}

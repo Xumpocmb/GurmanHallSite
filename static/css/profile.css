@@ -1,0 +1,129 @@
+section.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.profile__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    width: 80%;
+}
+
+.profile__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+    padding: 15px 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /*width: 70%;*/
+}
+
+.profile__form_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 15px;
+}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    margin-bottom: 0;
+}
+
+.custom-file-input {
+    position: relative;
+    z-index: 2;
+    width: 250px;
+    height: calc(1.5em + 0.75rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+
+.custom-file-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 1.5rem;
+}
+
+.custom-file-label::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: calc(1.5em + 0.75rem);
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    content: "Browse";
+    background-color: #e9ecef;
+    border-left: inherit;
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.link-footer-block {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.profile-row {
+    flex-wrap: nowrap;
+    gap: 20px;
+    width: 90%;
+}
+
+.avatar {
+    padding-top: 15px;
+}
+
+@media (max-width: 991px) {
+    .profile-row {
+        flex-wrap: wrap;
+    }
+}
+
+.form-control {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.5;
+    font-family: "Prompt", sans-serif;
+}
+
+.small {
+    font-size: 1.5rem;
+    font-weight: 400;
+}

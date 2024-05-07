@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /user/login/
+Disallow: /user/logout/
+Allow: /
+Sitemap: https://gurmanhall.by/sitemap.xml

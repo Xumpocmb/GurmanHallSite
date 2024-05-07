@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/big_card.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="main">
+        <section class="big-card">
+            <!-- начало карточки товара -->
+            <div class="big-card__main-container">
+                <div class="big-card__card-block">
+                    <div class="big-card__img-container">
+                        <div class="big-card__img-block">
+                            <img src="{% if item.image %}{{ item.image.url }}
+                                    {% else %}{% static 'img/not_found.png' %}
+                                    {% endif %}" class="big-card__img" alt="{{ item.name }}">
+                        </div>
+                    </div>
+                    <div class="big-card__text-block">
+                        <form class="big-card__form" action="{% url 'app_cart:add_to_cart' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <h2 class="big-card__title">{{ item.name }}</h2>
+                            <p class="big-card__compound-text">{{ item.description }}</p>
+                            <div class="big-card__price-quantity-block">
+                                <p class="big-card__desc-text">Выберите размер порции:</p>
+                                <div class="big-card__item-size-selector">
+                                    {% for param in item.itemparams_set.all %}
+                                        <!-- РАЗМЕР -->
+                                        {% if param.size.size %}
+                                            {% if forloop.first %}
+                                                <div class="item-size-selector">
+                                                    <input class="big-card__item-size-radio" type="radio"
+                                                           name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}-{{ param.size.id }}"
+                                                           checked>
+                                                    <label class="big-card__item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}-{{ param.size.id }}">{{ param.size }}
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% else %}
+                                                <div class="item-size-selector">
+                                                    <input class="big-card__item-size-radio" type="radio"
+                                                           name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}-{{ param.size.id }}">
+                                                    <label class="big-card__item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}-{{ param.size.id }}">{{ param.size }}
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                        <!-- ШТУКИ -->
+                                        {% if param.count %}
+                                            {% if forloop.first %}
+                                                <div class="item-size-selector">
+                                                    <input class="big-card__item-size-radio" type="radio"
+                                                           name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}" checked>
+                                                    <label class="big-card__item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.count }}
+                                                        шт.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% else %}
+                                                <div class="item-size-selector">
+                                                    <input class="big-card__item-size-radio" type="radio"
+                                                           name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}">
+                                                    <label class="big-card__item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.count }}
+                                                        шт.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                        <!-- ВЕС -->
+                                        {% if param.weight %}
+                                            {% if forloop.first %}
+                                                <div class="item-size-selector">
+                                                    <input class="big-card__item-size-radio" type="radio"
+                                                           name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}" checked>
+                                                    <label class="big-card__item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.weight }}
+                                                        гр.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+
+                                            {% else %}
+                                                <div class="item-size-selector">
+                                                    <input class="big-card__item-size-radio" type="radio"
+                                                           name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}">
+                                                    <label class="big-card__item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.weight }}
+                                                        гр.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            {% if toppings %}
+                                <p class="big-card__desc-text">Шапочку запеченных роллов можно полить соусом:</p>
+                                <div class="big__card-souse-block">
+                                    {% for topping in toppings %}
+                                        {% if forloop.first %}
+                                            <div class="big-card__souse-item">
+                                                <label class="big-card__souse-item-label">
+                                                    <input type="radio" name="souse-option" class="radio"
+                                                           value="{{ topping.id }}"
+                                                           checked="checked">
+                                                    <span class="radio-custom"></span>
+                                                    <span class="label">{{ topping.name }}</span>
+                                                </label>
+                                            </div>
+                                        {% else %}
+                                            <div class="big-card__souse-item">
+                                                <label class="big-card__souse-item-label">
+                                                    <input type="radio" name="souse-option" class="radio"
+                                                           value="{{ topping.id }}">
+                                                    <span class="radio-custom"></span>
+                                                    <span class="label">{{ topping.name }}</span>
+                                                </label>
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <div class="show-modal__select-wrapper">
+                                <!-- борт -->
+                                {% if pizza_boards %}
+                                    <div class="show-modal__select-block" id="show-modal__select-block__{{ item.id }}">
+                                        <label class="show-modal__select-title"
+                                               for="modal__select__pizza_board__{{ item.id }}">Выбрать
+                                            борт:</label>
+                                        <div class="item-text-selector">
+                                            <div class="show-modal__select-img-block">
+                                                <img src="{% static 'img/Cheese-border.png' %}"
+                                                     alt="Cheese-border">
+                                            </div>
+                                            <select class="show-modal__select" name="pizza_board"
+                                                    id="modal__select__pizza_board__{{ item.id }}">
+                                                <option value="0">Стандарт</option>
+                                                {% for board in pizza_boards %}
+                                                    <option value="{{ board.id }}">{{ board.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- соус -->
+                                {% if pizza_sauces %}
+                                    <div class="show-modal__select-block">
+                                        <label class="show-modal__select-title" for="pizza_sauce">Выбрать
+                                            соус-основу:</label>
+                                        <div class="item-text-selector">
+                                            <div class="show-modal__select-img-block">
+                                                <img src="{% static 'img/pizza-sauce.png' %}" alt="Cheese-border">
+                                            </div>
+                                            <select class="show-modal__select" name="pizza_sauce" id="pizza_sauce">
+                                                {% for sauce in pizza_sauces %}
+                                                    <option value="{{ sauce.id }}">{{ sauce.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                            <!-- НАЧАЛО КНОПКА КУПИТЬ -->
+                            <button type="submit" class="btn btn-success show-modal__btn" id="show-modal__btn">
+                                <span class="show-modal__inner-button-text">
+                                    <img src="{% static 'img/basket2.png' %}" alt="basket"
+                                         class="show-modal__img-basket">
+                                    <span class="show-modal__basket-title">Купить за </span>
+                                    <span class="show-modal__basket-title-price"
+                                          id="show__modal__basket__title">{{ item.itemparams_set.first.price }} р.</span>
+                                </span>
+
+                            </button>
+                            <!-- КОНЕЦ КНОПКА КУПИТЬ -->
+                            {% if pizza_addons %}
+                                <!-- НАЧАЛО ДОБАВКИ -->
+                                <div class="show-modal__supplements">
+                                    <h3 class="show-modal__supple-title">Добавь чтобы стало вкуснее:</h3>
+                                    <div class="show-modal__row">
+                                        {% for addon in pizza_addons %}
+                                            <div class="show-modal__col justify-content-center">
+                                                <div class="show-modal__supple-card show-modal__supple-card__{{ item.id }}"
+                                                     id="show-modal__supple-card__{{ addon.id }}">
+                                                    <div class="show-modal__supple-img">
+                                                        <img src="{% if addon.image %}{{ addon.image.url }}{% endif %}"
+                                                             alt="{{ addon.name }}" width="50"
+                                                             height="50">
+                                                    </div>
+                                                    <p class="show-modal__supple-card-title">{{ addon.name }}</p>
+                                                    <div class="show-modal__supple-price-block">
+                                                        <p class="show-modal__price">{{ addon.price }} р.</p>
+                                                        <div class="show-modal__check">
+                                                            <label>
+                                                                <input type="checkbox" class="big-card__checkbox"
+                                                                       name="addons"
+                                                                       value="{{ addon.id }}">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- КОНЕЦ ДОБАВКИ -->
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- конец карточки товара -->
+        </section>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/card-img-animation.js' %}"></script>
+    <script src="{% static 'js/change_price_on_choice.js' %}"></script>
+{% endblock %}

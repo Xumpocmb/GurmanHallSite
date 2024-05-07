@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <main class="main">
+        <section class="create_order">
+            <div class="create_order__container col-lg-6">
+                <div class="order_list__card justify-content-center">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Детали заказа</h3>
+                    </div>
+                    <div class="order_list mt-5">
+                        <p>Номер заказа: {{ order.id }}</p>
+                        <!-- <p>Статус: {{ order.get_status_display }}</p> -->
+                        <p>Заказчик: {{ order.customer }}</p>
+                        <p>Email: {{ order.email }}</p>
+                        <p>Адрес доставки: {{ order.address }}</p>
+                        <p>Телефон: {{ order.phone }}</p>
+                        <p>Способ доставки: {{ order.get_delivery_method_display }}</p>
+                        <p>Создан: {{ order.created_at }}</p>
+                        {% if order.cart_history.carts %}
+                            <h2>Список товаров в заказе</h2>
+                            <hr>
+                            {% for cart in order.cart_history.carts %}
+                                <p class="card-title">Товар: {{ cart.product_name }}</p>
+                                <p>Цена: {{ cart.price }}</p>
+                                <p>Количество: {{ cart.quantity }}</p>
+                                {% if cart.sauce %}
+                                    <p>Соус: {{ cart.sauce }}</p>
+                                {% endif %}
+                                {% if cart.topping %}
+                                    <p>Шапочка: {{ cart.topping }}</p>
+                                {% endif %}
+                                {% if cart.pizza_board %}
+                                    <p>Борт: {{ cart.pizza_board.name }} - {{ cart.pizza_board.price }} р.</p>
+                                {% endif %}
+                                {% if cart.addons %}
+                                    <p>Добавки к пицце:</p>
+                                    <ul>
+                                        {% for addon, price in cart.addons.items %}
+                                            <li>{{ addon }} - {{ price }} р.</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <hr>
+                            {% endfor %}
+                            <p class="basket__order">Итого: {{ order.cart_history.total_sum }}</p>
+                        {% else %}
+                            <p>No items in cart history</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

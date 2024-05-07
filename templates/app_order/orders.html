@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <main class="main">
+        <section class="create_order">
+            <div class="create_order__container col-lg-6">
+                <div class="order_list__card justify-content-center">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Просмотр заказов</h3>
+                    </div>
+                    <div class="order_list text-center mt-5">
+                        <table class="table">
+                            <thead>
+                            <tr class="table-light">
+                                <th scope="col">#</th>
+                                <th scope="col">Статус</th>
+                                <th scope="col">Создан</th>
+                                <th scope="col">Итого</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <th scope="row">{{ order.id }}</th>
+                                    <td>{{ order.get_status_display }}</td>
+                                    <td>{{ order.created_at }}</td>
+                                    <td>{{ order.basket_history.total_sum }} руб.</td>
+                                    <td>
+                                        <a href="{% url 'app_order:order_detail' order.id %}">Детали</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

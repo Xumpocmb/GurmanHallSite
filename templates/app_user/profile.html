@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <main class="main">
+        <section class="profile">
+            <div class="profile__container justify-content-center">
+                <div class="profile__card border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Профиль</h3>
+                    </div>
+                    <div class="col-lg-12 text-center avatar">
+                    {% if user.image %}
+                        <img width="100" height="100"
+                             src="{{ user.image.url }}" class="img-thumbnail" alt="photo">
+                    {% else %}
+                        <img width="100" height="100"
+                             src="{% static 'img/not_found.png' %}" class="img-thumbnail" alt="photo">
+                    {% endif %}
+                    </div>
+                    <div class="profile__form">
+                        <form action="{% url 'app_user:profile' %}" method="post" enctype="multipart/form-data"
+                              class="profile__form">
+                            {% csrf_token %}
+                            <div class="form-row mb-2">
+                                <div class="col-lg-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="form-control input-img" id="userAvatar"
+                                               name="image" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row profile-row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="first_name">Имя</label>
+                                        <input class="form-control py-4" id="first_name" name="first_name" type="text"
+                                               placeholder="Введите имя"
+                                               value="{{ user.first_name | default_if_none:'' }}">
+                                        {% if form.first_name.errors %}
+                                            <div class="profile-alert alert alert-danger alert-dismissible fade show"
+                                                 role="alert">
+                                                {{ form.first_name.errors }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="last_name">Фамилия</label>
+                                        <input class="form-control py-4" id="last_name" name="last_name" type="text"
+                                               placeholder="Введите фамилию"
+                                               value="{{ user.last_name | default_if_none:'' }}">
+                                        {% if form.last_name.errors %}
+                                            <div class="profile-alert alert alert-danger alert-dismissible fade show"
+                                                 role="alert">
+                                                {{ form.last_name.errors }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row profile-row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="address">Адрес <span class="badge bg-info">(заполните для возможности оформления заказа)</span></label>
+                                        <input class="form-control py-4" id="address"
+                                               name="address" type="text"
+                                               placeholder="Введите адрес"
+                                               value="{{ user.address | default_if_none:'' }}">
+                                        {% if form.address.errors %}
+                                            <div class="profile-alert alert alert-danger alert-dismissible fade show"
+                                                 role="alert">
+                                                {{ form.address.errors }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputTel">Телефон <span class="badge bg-info">(заполните для возможности оформления заказа)</span></label>
+                                        <input class="form-control py-4" id="inputTel" name="phone"
+                                               placeholder="Введите номер телефона"
+                                               value="{{ user.phone | default_if_none:'' }}">
+                                        {% if form.phone.errors %}
+                                            <div class="profile-alert alert alert-danger alert-dismissible fade show"
+                                                 role="alert">
+                                                {{ form.phone.errors }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row profile-row">
+                                <div class="col-lg-12">
+                                    <label class="small mb-1" for="inputUsername">Имя пользователя</label>
+                                    <input class="form-control py-4" id="inputUsername" type="text"
+                                           aria-describedby="usernameHelp" name="username"
+                                           value="{{ user.username | default_if_none:'' }}" disabled>
+                                    {% if form.username.errors %}
+                                        <div class="profile-alert alert alert-danger alert-dismissible fade show"
+                                             role="alert">
+                                            {{ form.username.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-12">
+                                    <label class="small mb-1" for="inputEmailAddress">Адрес электронной почты
+                                        {% if request.user.verified_email %}
+                                            <span class="badge bg-success">(подтвержден)</span>
+
+                                        {% else %}
+                                            <span class="badge bg-danger">(не подтвержден)</span>
+                                        {% endif %}
+                                    </label>
+                                    <input class="form-control py-4" id="inputEmailAddress" name="email" type="email"
+                                           aria-describedby="emailHelp"
+                                           placeholder="Введите email"
+                                           value="{{ user.email | default_if_none:'' }}" disabled>
+                                    {% if form.email.errors %}
+                                        <div class="profile-alert alert alert-danger alert-dismissible fade show"
+                                             role="alert">
+                                            {{ form.email.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group mt-4 mb-0">
+                                <input class="btn btn-success btn-block" type="submit" value="Сохранить">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center link-footer-block">
+                        <div class="small">
+                            <a class="register__link" href="#">Мои заказы</a>
+                        </div>
+                        <div class="small">
+                            <a class="register__link" href="#">Сменить пароль</a>
+                        </div>
+                        <div class="small">
+                            <a class="register__link" href="#">Сменить email</a>
+                        </div>
+                        <div class="small">
+                            <a class="register__link" href="#">Удалить аккаунт</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+    

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="main">
+        <section class="profile">
+            <div class="profile__container col-lg-6">
+                <div class="profile__card justify-content-center">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Поздравляем</h3>
+                    </div>
+                    <div class="card-body card-body-register">
+                        <div class="card-body text-center">
+                            <h4>Ваша учетная запись успешно подтверждена!</h4>
+                        </div>
+                        <hr class="my-4">
+                        <div class="card-footer text-center">
+                            <div class="small"><a href="{% url 'app_user:login' %}">Продолжить</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+

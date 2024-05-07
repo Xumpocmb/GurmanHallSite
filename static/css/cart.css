@@ -1,0 +1,124 @@
+section.cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.cart__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.cart__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+    padding: 15px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+    background: rgba(197, 197, 197, 0.5);
+    border: 1px solid #045e36;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.cart-item-title {
+    font-size: 1.8em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+    vertical-align: middle;
+    color: #ffffff;
+    text-align: center;
+    background: #079b58;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.big-card-button-quantity {
+    text-decoration: none;
+    vertical-align: middle;
+    color: #ffffff;
+    background: #079b58;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    /*letter-spacing: 1.0em;*/
+    text-align: center;
+}
+
+.big-card-button-quantity:hover {
+    color: #ffffff;
+    background: #045e36;
+}
+
+.badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.badge-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.basket-btn-input-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.fa-trash:before {
+  content: "\f1f8";
+  font-family: "Font Awesome 5 Free";
+}
+
+.basket-row {
+  gap: 0;
+}
+
+.basket__order {
+  font-size: 1.5rem;
+}
+
+.basket__order-wrapper {
+  width: 80%;
+  padding: 0 15px;
+}
+
+.basket__sum {
+  font-size: 2rem;
+}
+
+@media (max-width: 991px) {
+  .basket-row {
+    gap: 20px;
+  }
+}

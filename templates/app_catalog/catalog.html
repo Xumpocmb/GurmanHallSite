@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="category-block">
+            <div class="category-name">
+                <h2 class="category-name-title">{{ category.name }}</h2>
+            </div>
+        </div>
+
+        
+            {% if items %}
+                <div class="row">
+                <!-- product card -->
+                {% for item in items %}
+                    <div class="col-md-12">
+                        <div class="product-card" id="card_{{ item.id }}">
+                            <form class="catalog-form" action="{% url 'app_cart:add_to_cart' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                <div class="card-product-info">
+                                    {% if item.image %}
+                                        <img src="{{ item.image.url }}" alt="Product 1" class="product-image">
+                                    {% else %}
+                                        <img src="{% static 'img/not_found.png' %}" alt="Product 1"
+                                             class="product-image">
+                                    {% endif %}
+
+                                    <div class="product-title">{{ item.name }}</div>
+                                    <div class="product-description">{{ item.description }}</div>
+                                </div>
+                                <div class="item-size-selector-wrapper">
+                                    <p class="item-size-selector-label">Размер порции:</p>
+                                    {% for param in item.itemparams_set.all %}
+                                        <!-- РАЗМЕР -->
+                                        {% if param.size.size %}
+                                            {% if forloop.first %}
+                                                <div class="item-size-selector">
+                                                    <input class="item-size-radio" type="radio" name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}" checked>
+                                                    <label class="item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.size }}
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% else %}
+                                                <div class="item-size-selector">
+                                                    <input class="item-size-radio" type="radio" name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}">
+                                                    <label class="item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.size }}
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                        <!-- ШТУКИ -->
+                                        {% if param.count %}
+                                            {% if forloop.first %}
+                                                <div class="item-size-selector">
+                                                    <input class="item-size-radio" type="radio" name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}" checked>
+                                                    <label class="item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.count }}
+                                                        шт.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% else %}
+                                                <div class="item-size-selector">
+                                                    <input class="item-size-radio" type="radio" name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}">
+                                                    <label class="item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.count }}
+                                                        шт.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                        <!-- ВЕС -->
+                                        {% if param.weight %}
+                                            {% if forloop.first %}
+                                                <div class="item-size-selector">
+                                                    <input class="item-size-radio" type="radio" name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}" checked>
+                                                    <label class="item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.weight }}
+                                                        гр.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% else %}
+                                                <div class="item-size-selector">
+                                                    <input class="item-size-radio" type="radio" name="item-size-radio"
+                                                           value="{{ param.id }}"
+                                                           id="radio-{{ item.id }}-{{ param.id }}">
+                                                    <label class="item-size-label"
+                                                           for="radio-{{ item.id }}-{{ param.id }}">{{ param.weight }}
+                                                        гр.
+                                                        - {{ param.price }}
+                                                        р.</label>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="constructor-open">
+                                    <a href="{% url 'app_catalog:item_detail_view' item.id %}" class="link-primary">Открыть
+                                        в конструкторе</a>
+                                </div>
+                                <div class="add-to-cart">
+                                    <button class="btn btn-success add-to-cart-button">В корзину</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- End of product card -->
+                </div>
+            {% else %}
+                <div class="empty__info"><h2 class="about__info-title">Простите, мы еще ничего не приготовили..</h2>
+                </div>
+            {% endif %}
+
+        </div>
+    
+{% endblock %}

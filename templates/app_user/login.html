@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+        <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    {% endblock %}
+
+{% block content %}
+    <main class="main">
+        <section class="register">
+            <div class="register__container justify-content-center">
+                <div class="col-lg-7">
+                    <div class="register__card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Вход в аккаунт</h3>
+                        </div>
+                        <div class="card-body card-body-register">
+                            <form class="register__form" action="{% url 'app_user:login' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputUsername">Имя пользователя</label>
+                                        <input class="form-control py-4" id="inputUsername" type="text"
+                                               aria-describedby="usernameHelp" name="username"
+                                               placeholder="Введите имя пользователя" required/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPassword">Пароль</label>
+                                        <input class="form-control py-4" id="inputPassword" type="password"
+                                               placeholder="Введите пароль" name="password" required/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <input class="btn btn-success btn-block" type="submit" value="Вход">
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="card-footer text-center">
+                                <div class="small">
+                                    <a class="register__link"
+                                       href="{% url 'app_user:register' %}">Зарегистрироваться</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

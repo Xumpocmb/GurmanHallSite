@@ -1,0 +1,221 @@
+.big-card__main-container {
+    padding: 20px;
+    margin: 50px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: #f4f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s;
+}
+
+
+.big-card__card-block {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.big-card__img {
+    width: 100%;
+    cursor: all-scroll;
+    transition: transform 0.3s ease-in-out;
+}
+
+.big-card__img-block {
+    border: 1px solid gray;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.big-card__title {
+    font-size: 4em;
+    margin-bottom: 10px;
+}
+
+.big-card__compound-text {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    max-width: 90%;
+}
+
+.big-card__text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.big-card__desc-text {
+    font-size: 1.6em;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 2.4rem;
+    margin: 0;
+}
+
+.show-modal__select-title {
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
+    letter-spacing: 0.06em;
+    margin: 0;
+}
+
+.big-card__item-size-label {
+    font-size: 1.4em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    margin: 0;
+    cursor: pointer;
+}
+
+.big-card__item-size-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.item-text-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.big-card__img-block:hover .big-card__img {
+    transform: scale(1.5);
+}
+
+.show-modal__select-block {
+    display: flex;
+    justify-content: normal;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.show-modal__select-img-block {
+    width: 50px;
+    height: 50px;
+}
+
+.show-modal__select-img-block img {
+    width: 100%;
+    height: 100%;
+}
+
+.show-modal__select {
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    background-color: #079c5a;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.show-modal__btn {
+    background-color: #079c5a;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+}
+
+.show-modal__basket-title .show-modal__basket-title-price {
+    font-size: 2em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    color: white;
+    vertical-align: middle;
+}
+
+.show-modal__img-basket {
+    width: 30px;
+    height: 30px;
+}
+
+.big__card-souse-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.big-card__souse-item {
+    padding: 5px;
+}
+
+.big-card__souse-item-label {
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5em;
+    letter-spacing: 0.06em;
+    border: #0c4128 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    transition: background-color 0.7s;
+}
+
+.big-card__souse-item-label:hover {
+    background-color: #0c4128;
+    color: white;
+    transition: background-color 0.7s;
+}
+
+
+/*.label.selected {*/
+/*    color: #079c5a;*/
+/*}*/
+
+/*.radio {*/
+/*    display: none;*/
+/*}*/
+
+/*.radio-custom {*/
+/*    content: "";*/
+/*    display: inline-block;*/
+/*    width: 18px;*/
+/*    height: 18px;*/
+/*    border: 5px solid gray;*/
+/*    background-color: white;*/
+/*    border-radius: 50%;*/
+/*    vertical-align: middle;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.radio:checked + .radio-custom {*/
+/*    border-color: #079c5a;*/
+/*    box-shadow: 0 1px 1px rgba(255, 198, 5, 0.05),*/
+/*    0 2px 2px rgba(255, 198, 5, 0.05), 0 4px 4px rgba(255, 198, 5, 0.05),*/
+/*    0 8px 8px rgba(255, 198, 5, 0.05), 0 16px 16px rgba(255, 198, 5, 0.05),*/
+/*    0 32px 32px rgba(255, 198, 5, 0.05), 0 -2px 4px rgba(255, 198, 5, 0.05);*/
+/*}*/
+
+
