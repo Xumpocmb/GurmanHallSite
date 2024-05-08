@@ -96,4 +96,7 @@ def register_view(request):
                 return redirect('app_home:home')
         else:
             context['message_error'] = form.errors
+    else:
+        form = UserRegistrationForm()
+    context['form'] = form
     return render(request, 'app_user/register.html', context=context)

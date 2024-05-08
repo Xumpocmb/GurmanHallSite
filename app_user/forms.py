@@ -26,8 +26,8 @@ class UserRegistrationForm(UserCreationForm):
     last_name = forms.CharField()
     username = forms.CharField()
     email = forms.EmailField()
-    password1 = forms.CharField()
-    password2 = forms.CharField()
+    password1 = forms.PasswordInput()
+    password2 = forms.PasswordInput()
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
