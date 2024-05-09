@@ -9,7 +9,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG') == 'True'
 # os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['gurmanhall.by', '5.101.50.32', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['gurmanhall.by', '5.101.50.32', '127.0.0.1', 'localhost', '127.0.0.1', '0.0.0.0']
 
 SITE_ID = 1
 
@@ -32,7 +32,9 @@ INSTALLED_APPS = [
     "app_catalog.apps.AppCatalogConfig",
     "app_user.apps.AppUserConfig",
     "app_order.apps.AppOrderConfig",
-    "app_cart.apps.AppCartConfig"
+    "app_cart.apps.AppCartConfig",
+
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
