@@ -6,6 +6,9 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 from django.utils.timezone import now
 
 from app_user.models import User, EmailVerification
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 
 
 class UserLoginForm(AuthenticationForm):
@@ -51,3 +54,9 @@ class UserProfileForm(UserChangeForm):
 
     address = forms.CharField(required=False)
     phone = forms.CharField(required=False)
+
+
+class EmailChangeForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['email']

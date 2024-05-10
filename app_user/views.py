@@ -6,9 +6,18 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .forms import EmailChangeForm
+from django.contrib import messages
 
 from app_user.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from app_user.models import User, EmailVerification
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
 def login_view(request):
@@ -36,14 +45,14 @@ def login_view(request):
     return render(request, 'app_user/login.html', context)
 
 
-@login_required(login_url='user_app:login')
+@login_required(login_url='app_user:login')
 def logout_view(request):
     auth.logout(request)
     messages.info(request, 'Вы вышли из аккаунта!')
     return HttpResponseRedirect(reverse('app_home:home'))
 
 
-@login_required(login_url='user_app:login')
+@login_required(login_url='app_user:login')
 def profile_view(request):
     username = request.user.username
     context = {
@@ -100,3 +109,54 @@ def register_view(request):
         form = UserRegistrationForm()
     context['form'] = form
     return render(request, 'app_user/register.html', context=context)
+
+
+@login_required(login_url='app_user:login')
+def change_password(request):
+    context = {
+        'title': 'Смена пароля',
+    }
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Пароль успешно изменен.')
+            return redirect('app_user:profile')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки ниже.')
+    else:
+        form = PasswordChangeForm(request.user)
+    context['form'] = form
+    return render(request, 'app_user/change_password.html', context=context)
+
+
+@login_required(login_url='app_user:login')
+def user_delete(request):
+    if request.method == 'POST':
+        request.user.is_active = False
+        request.user.save()
+        auth.logout(request)
+        messages.info(request, 'Аккаунт удален. Спасибо за пользование нашего сайта!', extra_tags='success')
+        return redirect('app_home:home')
+    return render(request, 'app_user/user_delete.html')
+
+
+@login_required(login_url='app_user:login')
+def change_email(request):
+    context = {
+        'title': 'Смена почты',
+    }
+    if request.method == 'POST':
+        form = EmailChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Email успешно изменен.')
+            return redirect('change_email')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки ниже.')
+    else:
+        form = EmailChangeForm(instance=request.user)
+    context['form'] = form
+    return render(request, 'app_user/change_email.html', context=context)
+

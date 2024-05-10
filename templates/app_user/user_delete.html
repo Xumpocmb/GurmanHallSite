@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<h1>Смена пароля</h1>
+    <p>Действительно хотите удалить аккаунт?</p>
+    <form method="post" >
+        {% csrf_token %}
+        <button type="submit">Удалить аккаунт</button>
+    </form>
+    <p><a href="{% url 'app_home:home' %}">Вернуться к просмотру сайта</a></p>
+{% endblock %}

@@ -137,16 +137,16 @@
                     </div>
                     <div class="card-footer text-center link-footer-block">
                         <div class="small">
-                            <a class="register__link" href="#">Мои заказы</a>
+                            <a class="register__link" href="{% url 'app_order:orders' %}">Мои заказы</a>
                         </div>
                         <div class="small">
-                            <a class="register__link" href="#">Сменить пароль</a>
+                            <a class="register__link" href="{% url 'app_user:change_password' %}">Сменить пароль</a>
                         </div>
                         <div class="small">
-                            <a class="register__link" href="#">Сменить email</a>
+                            <a class="register__link" href="{% url 'app_user:change_email' %}">Сменить email</a>
                         </div>
                         <div class="small">
-                            <a class="register__link" href="#">Удалить аккаунт</a>
+                            <a class="register__link" href="{% url 'app_user:user_delete' %}">Удалить аккаунт</a>
                         </div>
                     </div>
                 </div>

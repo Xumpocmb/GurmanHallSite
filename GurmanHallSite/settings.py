@@ -33,8 +33,6 @@ INSTALLED_APPS = [
     "app_user.apps.AppUserConfig",
     "app_order.apps.AppOrderConfig",
     "app_cart.apps.AppCartConfig",
-
-    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
