@@ -117,6 +117,4 @@ __pypackages__/
 static/img
 static/video
 
-
-docker-compose.yml
 /fixtures/
