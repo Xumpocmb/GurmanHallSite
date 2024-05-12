@@ -383,3 +383,20 @@ body {
 .empty__info {
     min-height: 50vh;
 }
+
+.pagination .page-link {
+  color: black;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.5rem;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #079c5a;
+  border-color: #079c5a;
+}
+
+.page-link:hover {
+  color: #079c5a;
+}

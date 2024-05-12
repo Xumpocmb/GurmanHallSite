@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render
 from app_catalog.models import Item, Category, PizzaSauce, PizzaBoard, PizzaAddons, ItemParams, BoardParams, Topping
@@ -13,10 +14,16 @@ def catalog(request):
 
 def category_detail(request, slug):
     category = Category.objects.filter(slug=slug, is_active=True).first()
+    items = Item.objects.filter(category__slug=slug, is_active=True)
+
+    page = int(request.GET.get('page', 1))
+    paginator = Paginator(items, 9)
+    current_page = paginator.page(page)
+
     context = {
         'title': category.name if category else 'Каталог',
         'category': category,
-        'items': Item.objects.filter(category__slug=slug, is_active=True),
+        'items': current_page,
     }
     return render(request, 'app_catalog/catalog.html', context=context)
 

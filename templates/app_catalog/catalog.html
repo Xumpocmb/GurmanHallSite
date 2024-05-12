@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load change_query_params %}
 
 {% block content %}
     <div class="container">
@@ -9,9 +10,9 @@
             </div>
         </div>
 
-        
-            {% if items %}
-                <div class="row">
+
+        {% if items %}
+            <div class="row">
                 <!-- product card -->
                 {% for item in items %}
                     <div class="col-md-12">
@@ -112,8 +113,8 @@
                                     {% endfor %}
                                 </div>
                                 <div class="constructor-open">
-                                    <a href="{% url 'app_catalog:item_detail_view' item.id %}" class="link-primary">Открыть
-                                        в конструкторе</a>
+                                    <!--<a href="" class="link-primary">Открыть
+                                        в конструкторе</a>-->
                                 </div>
                                 <div class="add-to-cart">
                                     <button class="btn btn-success add-to-cart-button">В корзину</button>
@@ -123,12 +124,44 @@
                     </div>
                 {% endfor %}
                 <!-- End of product card -->
+            </div>
+            <!-- начало пагинации -->
+            <nav aria-label="Page navigation example">
+                <div class="pagination" style="
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;">
+                    <ul id="pagination" class="pagination">
+                        <li class="page-item {% if not items.has_previous %} disabled {% endif %}">
+                            <a class="page-link" href="{% if items.has_previous %}?
+                        {% change_params page=items.previous_page_number %}{% else %}#{% endif %}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">Назад</span>
+                            </a>
+                        </li>
+                        {% for page in items.paginator.page_range %}
+                            {% if page >= items.number|add:-2 and page <= items.number|add:2 %}
+                                <li class="page-item {% if items.number == page %}active{% endif %} ">
+                                    <a class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        <li class="page-item {% if not items.has_next %} disabled {% endif %}">
+                            <a class="page-link" href="
+                                    {% if items.has_next %}?
+                                {% change_params page=items.next_page_number %}{% else %}#{% endif %}">Вперед</a>
+                        </li>
+                    </ul>
                 </div>
-            {% else %}
-                <div class="empty__info"><h2 class="about__info-title">Простите, мы еще ничего не приготовили..</h2>
-                </div>
-            {% endif %}
+            </nav>
 
-        </div>
-    
+            <!-- конец пагинации -->
+        {% else %}
+            <div class="empty__info"><h2 class="about__info-title">Простите, мы еще ничего не приготовили..</h2>
+            </div>
+        {% endif %}
+
+    </div>
+
 {% endblock %}
