@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render
 from app_catalog.models import Item, Category, PizzaSauce, PizzaBoard, PizzaAddons, ItemParams, BoardParams, Topping
-from django.forms.models import model_to_dict
+from django.core.cache import cache
 
 
 def catalog(request):
@@ -13,8 +13,15 @@ def catalog(request):
 
 
 def category_detail(request, slug):
-    category = Category.objects.filter(slug=slug, is_active=True).first()
-    items = Item.objects.filter(category__slug=slug, is_active=True)
+    category = cache.get(f'category_{slug}')
+    if not category:
+        category = Category.objects.filter(slug=slug, is_active=True).first()
+        cache.set(f'category_{slug}', category, 3600)
+
+    items = cache.get(f'items_{slug}')
+    if not items:
+        items = Item.objects.filter(category__slug=slug, is_active=True)
+        cache.set(f'items_{slug}', items, 3600)
 
     page = int(request.GET.get('page', 1))
     paginator = Paginator(items, 9)
@@ -29,7 +36,10 @@ def category_detail(request, slug):
 
 
 def item_card(request, item_id):
-    item = Item.objects.get(id=item_id)
+    item = cache.get(f'item_{item_id}')
+    if not item:
+        item = Item.objects.get(id=item_id)
+        cache.set(f'item_{item_id}', item, 3600)
     context = {
         'title': item.name,
         'item': item,
